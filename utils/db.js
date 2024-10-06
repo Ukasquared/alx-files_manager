@@ -18,13 +18,21 @@ class DBClient {
     }
 
     async nbUsers() {
-        return this.client.db(this.database).collection('users').countDocuments();
+        return this.client.db()
+          .collection('users').countDocuments();
 
     }
 
     async nbFiles() {
-        return this.client.db(this.database).collection('files').countDocuments();
+        return this.client.db()
+          .collection('files').countDocuments();
     
+    }
+
+    async checkEmail(email) {
+        const trueOrFalse = await (await this.client.db()
+        .collection('users')).findOne({'email': email});
+        return trueOrFalse;
     }
 }
 
